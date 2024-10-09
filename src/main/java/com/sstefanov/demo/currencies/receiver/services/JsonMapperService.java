@@ -25,7 +25,7 @@ public class JsonMapperService {
 
             Wrapper wrapper = objectMapper.readValue(jsonString, Wrapper.class);
 
-            System.out.println(wrapper);
+            log.debug("Created POJO from json {}", wrapper);
             return wrapper;
 
         } catch (Exception e) {
