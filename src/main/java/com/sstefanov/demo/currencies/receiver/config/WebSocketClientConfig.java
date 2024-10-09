@@ -1,5 +1,6 @@
 package com.sstefanov.demo.currencies.receiver.config;
 
+import com.sstefanov.demo.currencies.receiver.services.Props;
 import com.sstefanov.demo.currencies.receiver.services.WebSocketService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,10 @@ public class WebSocketClientConfig {
 
     @Autowired
     private WebSocketService webSocketService;
+
+    @Autowired
+    private Props props;
+
     private WebSocketSession session;
 
     @Scheduled(initialDelay = 100, fixedRate = 500)
@@ -30,8 +35,8 @@ public class WebSocketClientConfig {
     public void init() throws Exception {
         StandardWebSocketClient client = new StandardWebSocketClient();
         try {
-            session = client.execute(webSocketService, "ws://localhost:8011/ws").get();
-            session.setTextMessageSizeLimit(9999999);
+            session = client.execute(webSocketService, props.getCurrencyUpdaterServerUrl()).get();
+            session.setTextMessageSizeLimit(props.getWsTextMessageSizeLimit());
         } catch ( java.util.concurrent.ExecutionException e) {
             log.error("Cannot open WS session: " + e.getCause());
         }
