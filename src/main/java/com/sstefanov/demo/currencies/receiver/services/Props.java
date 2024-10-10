@@ -15,5 +15,4 @@ public class Props {
 
     @Value("${web-socket.text-message-size-limit}")
     private int wsTextMessageSizeLimit;
-
 }

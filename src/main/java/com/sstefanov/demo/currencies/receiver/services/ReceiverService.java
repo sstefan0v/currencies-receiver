@@ -20,12 +20,10 @@ public class ReceiverService {
     private DataBaseService dataBaseService;
 
     public  void handleMessage(String jsonString ) {
-        Wrapper wr = jsonMapperService.toObject(jsonString);
-        List<Language> languages = wr.getLanguages();
+        Wrapper wrapper = jsonMapperService.toObject(jsonString);
+        List<Language> languages = wrapper.getLanguages();
 
-        List<Currency> currencies = wr.getCurrencies();
-
-        languages.forEach(language -> language.setCurrencies(currencies));
+        languages.forEach(language -> language.setCurrencies(wrapper.getCurrencies()));
         dataBaseService.persistToDb(languages);
     }
 }
