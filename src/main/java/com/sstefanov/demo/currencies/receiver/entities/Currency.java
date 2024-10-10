@@ -1,5 +1,6 @@
 package com.sstefanov.demo.currencies.receiver.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,13 +11,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "currencies")
+@Table(name = "currencies_2")
 @Getter
 @Setter
 public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @Column

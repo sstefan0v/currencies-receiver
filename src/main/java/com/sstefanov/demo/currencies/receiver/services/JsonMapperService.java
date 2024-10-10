@@ -20,18 +20,17 @@ public class JsonMapperService {
         this.objectMapper.registerModule(new JavaTimeModule());
     }
 
-    public  Wrapper toObject(String jsonString ) {
+    public Wrapper toObject(String jsonString) {
         try {
-
             Wrapper wrapper = objectMapper.readValue(jsonString, Wrapper.class);
 
             log.debug("Created POJO from json {}", wrapper);
             return wrapper;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Failure to create POJOs: ", e);
+            throw new RuntimeException(e);
         }
-        return new Wrapper();
     }
 
 }
