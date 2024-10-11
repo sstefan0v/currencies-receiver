@@ -1,6 +1,7 @@
 package com.sstefanov.demo.currencies.receiver.services;
 
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sstefanov.demo.currencies.receiver.json.Wrapper;
@@ -18,6 +19,7 @@ public class JsonMapperService {
     private JsonMapperService() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.registerModule(new JavaTimeModule());
+        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     public Wrapper toObject(String jsonString) {
